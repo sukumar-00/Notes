@@ -1,0 +1,7 @@
+#pwd
+#ls -la
+docker build -t username/itiss:latest .
+docker push username/itiss:latest
+ssh admin@16.178.121.18 docker pull username/itiss:latest
+ssh admin@16.178.121.18 docker run -d -p 8085:80 --name mywe2 username/itiss:latest
+#ssh admin@16.178.121.18 sudo apt install apache2 -y
