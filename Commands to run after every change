@@ -1,0 +1,6 @@
+docker build -t username/itiss:latest .
+docker push username/itiss:latest
+
+ssh admin@<w-server-ip> docker pull username/itiss:latest
+ssh admin@<w-server-ip> docker rm -f mywe2
+ssh admin@<w-server-ip> docker run -d -p 80:80 --name mywe2 username/itiss:latest
