@@ -1,0 +1,9 @@
+#pwd
+#ls -l
+docker build -t username/itiss:latest .
+#docker tag itiss username/itiss:latest
+docker push username/itiss:latest
+ssh admin@web-ip docker pull username/itiss:latest 
+ssh admin@ip docker service rm myweb
+ssh admin@ip docker service create --name myweb -p 80:80 username/itiss:latest
+ssh admin@ip docker service scale myweb=3
