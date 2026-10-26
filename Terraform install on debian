@@ -1,0 +1,83 @@
+Terraform installation:-
+
+1.Terraform Documentaion---->install---->linux
+Note:- replace Trixie with $ to cs
+
+wget -O - https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com trixie main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
+sudo apt update && sudo apt install terraform
+
+2.Tutorials---->aws---->start---->create
+
+mkdir learn-terraform-get-started-aws
+
+cd learn-terraform-get-started-aws
+
+3.nano terraform.tf
+
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.92"
+    }
+  }
+
+  required_version = ">= 1.2"
+}
+
+4.nano main.tf
+
+provider "aws" {
+  region = "your-region"
+}
+
+data "aws_ami" "ubuntu" {
+  most_recent = true
+
+  filter {
+    name = "name"
+    values = ["ubuntu/images/hvm-ssd-gp3/ubuntu-noble-24.04-amd64-server-*"]
+  }
+
+  owners = ["099720109477"] # Canonical
+}
+
+resource "aws_instance" "app_server" {
+  ami           = data.aws_ami.ubuntu.id
+  instance_type = "t3.micro"
+
+  tags = {
+    Name = "EC-instance-name"
+  }
+}
+
+5.if you are root user---->security credentials---->At botton---->create access key
+otherwise
+
+create IAM user
+got to search IAM user 
+create user and attach policy----->AmazonEC2fullccess
+for s3 bucket----->AmazonS3fullaccess
+
+export AWS_ACCESS_KEY_ID=
+
+export AWS_SECRET_ACCESS_KEY=
+
+
+terraform fmt
+
+6.initiallize
+
+terraform init
+
+7.terraform validate
+
+8.terraform plan
+
+9.terraform apply
+
+
+Note:- terraform configure
+
+terraform detroy----->to remove bucket or instaces
