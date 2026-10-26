@@ -1,0 +1,47 @@
+S3 Bucket using terraform
+
+1.AWS login
+2.terraform install 
+3.mkdir terraform-s3
+  cd terraform-s3
+4.nano main.tf
+
+provider "aws" {
+  region = "us-east-1"
+}
+
+resource "aws_s3_bucket" "my_bucket" {
+  bucket = "my-unique-bucket-12345"
+  tags = {
+    Name        = "MyBucket"
+    Environment = "Dev"
+  }
+}
+
+
+5: Initialize and Plan
+
+Before you can use Terraform, you need to initialize it:
+
+terraform init
+
+6.Next, preview the changes Terraform will make:
+
+terraform plan
+
+Step 5: Apply the Configuration
+
+To create the bucket, run:
+
+terraform apply
+
+Note:-Terraform shows you the planned changes and asks for confirmation. Type yes.
+
+Step 6: Verify
+
+You can check the bucket in the AWS Management Console or with the AWS CLI:
+
+aws s3 ls
+
+Note:- To delete terraform 
+terraform detroy
