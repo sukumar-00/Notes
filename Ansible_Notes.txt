@@ -97,7 +97,7 @@ chatgpt code
         name: apache2
         state: latest
 
-
+ansible-playbook -i inventory/myinventory.ini playbook.yaml
 
 
 
