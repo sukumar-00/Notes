@@ -35,7 +35,7 @@ pip 25.1.1 from /usr/lib/python3/dist-packages/pip (python 3.13)
 
 
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
+sudo apt install python3.13-venv
 python3 -m venv /home/admin/myansible
 source /home/admin/myansible/bin/activate
 
