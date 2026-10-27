@@ -1,0 +1,103 @@
+1. AWS -> EC2 Instances Create
+
+[3 -> key -> ansible.ppk]
+
+Server - 16.176.1.167 	172.31.42.100
+node1 - 3.107.222.113	172.31.43.88
+node2 - 54.252.149.65	172.31.40.28
+
+
+# Connect all the instances with PuTTy
+# Change the hostname
+	sudo hostnamectl set-hostname server
+	sudo hostnamectl set-hostname node1
+	sudo hostnamectl set-hostname node2
+	
+# Update and Upgrade all the machines.
+	sudo apt update && sudo apt upgrade
+#ssh-keygen
+	paste key public key on node1 and node2 .ssh/authorized_keys
+#check server side
+ssh admin@node1
+ssh admin@node2
+###########################DEPENDENCY################################################
+	sudo apt install python3-pip python3-venv -y
+# which python3
+/usr/bin/python3    [if python3 is not installed, kindly install it]
+
+# which pip
+/usr/bin/pip		[in case pip is not there, install it with 'apt install pip']
+######################################################################################
+
+
+pip -V 		[To check version of pip]
+pip 25.1.1 from /usr/lib/python3/dist-packages/pip (python 3.13)
+
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+python3 -m venv /home/admin/myansible
+source /home/admin/myansible/bin/activate
+
+cd /home/admin/myansible
+
+pip install ansible
+ansible --version
+
+===============Installation of Ansible Completed =========================================
+
+# Ping all the machines with the name.
+
+myinventory.ini
+[nodes]
+node1
+node2
+
+ansible nodes -m ping -i inventory/myinventory.ini
+
+ping -> pong (successful)
+
+
+###########
+playbook.yaml
+
+chatgpt code
+---
+- name: Install Apache2
+  hosts: nodes
+  become: true
+
+  tasks:
+    - name: Update package cache
+      ansible.builtin.apt:
+        update_cache: true
+
+    - name: Install Apache2
+      ansible.builtin.apt:
+        name: apache2
+        state: present
+
+    - name: Start and enable Apache2
+      ansible.builtin.service:
+        name: apache2
+        state: started
+        enabled: true
+
+#sir's code
+- name: Install Tree
+  hosts: nodes
+  become: true
+  tasks:
+    - name: update
+      ansible.builtin.apt:
+        update_cache: true
+
+    - name: install
+      ansible.builtin.apt:
+        name: apache2
+        state: latest
+
+
+
+
+
