@@ -1,0 +1,5 @@
+node 'pclient' {
+    package { 'tree':
+        ensure => installed,
+    }
+}
